@@ -18,7 +18,7 @@ namespace Implode.Tests
                     services.AddHealthChecks()
                         .AddCheck<FailingHealthCheck>("Failing HealthCheck");
 
-                    services.AddImplodeStartupHealthCheck();
+                    services.AddImplodeOnStartupForUnhealthyHealthChecks();
                 })
                 .Build();
 
@@ -34,7 +34,7 @@ namespace Implode.Tests
                     services.AddHealthChecks()
                         .AddCheck<PassingHealthCheck>("Passing HealthCheck");
 
-                    services.AddImplodeStartupHealthCheck();
+                    services.AddImplodeOnStartupForUnhealthyHealthChecks();
                 })
                 .Build();
 
