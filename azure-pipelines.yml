@@ -10,10 +10,25 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'Implode.sln'
+  displayName: 'Building Implode'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: 'Implode.sln'
+  displayName: 'Testing Implode'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+  displayName: 'Packaging Implode'
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    nuGetFeedType: 'external'
+    externalEndpoint: 'd80d1388-626f-43a1-82f2-0ebabdae7d52'
+  displayName: 'Pushing Implode'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+
