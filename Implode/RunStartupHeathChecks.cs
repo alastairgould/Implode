@@ -14,11 +14,11 @@ namespace Implode
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            var report = await _healthCheckService.CheckHealthAsync();
+            var report = await _healthCheckService.CheckHealthAsync(cancellationToken);
 
             if (report.Status == HealthStatus.Unhealthy)
             {
-                throw new StartupHealthCheckFailed();
+                throw new StartupHealthCheckFailed(report);
             }
         }
 

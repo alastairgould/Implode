@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Implode.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Xunit;
 
@@ -22,7 +23,13 @@ namespace Implode.Tests
                 })
                 .Build();
 
-            await Assert.ThrowsAsync<StartupHealthCheckFailed>(() => host.StartAsync());
+            var exception = await Assert.ThrowsAsync<StartupHealthCheckFailed>(() => host.StartAsync());
+
+            Assert.Collection(exception.HealthReport.Entries, entry =>
+            {
+                Assert.Equal("Failing HealthCheck", entry.Key);
+                Assert.Equal(HealthStatus.Unhealthy, entry.Value.Status);
+            });
         }
 
         [Fact]
