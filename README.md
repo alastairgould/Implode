@@ -15,3 +15,6 @@ You prefer a newly deployed application to fail on deployment rather than fully 
         services.AddImplodeOnStartupForUnhealthyHealthChecks
     }
 ```
+## How to install
+
+```dotnet add package Implode```
