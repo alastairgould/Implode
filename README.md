@@ -12,7 +12,7 @@ You prefer a newly deployed application to fail on deployment rather than fully 
     public void ConfigureServices(IServiceCollection services)
     {
 	      //Other configure services code
-        services.AddImplodeOnStartupForUnhealthyHealthChecks
+        services.AddImplodeOnStartupForUnhealthyHealthChecks()
     }
 ```
 ## How to install
