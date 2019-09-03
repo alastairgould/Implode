@@ -4,7 +4,7 @@ namespace Implode
 {
     public class StartupHealthCheckFailed : System.Exception
     {
-        public HealthReport HealthReport { get; set; }
+        public HealthReport HealthReport { get; }
 
         public StartupHealthCheckFailed(HealthReport healthReport)
         {

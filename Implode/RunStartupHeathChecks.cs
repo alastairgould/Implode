@@ -8,6 +8,7 @@ namespace Implode
 {
     public class RunStartupHeathChecks : IHostedService
     {
+        private const int HealthCheckFailedExitCode = 1;
         private readonly HealthCheckService _healthCheckService;
         private readonly IApplicationLifetime _applicationLifetime;
 
@@ -23,6 +24,7 @@ namespace Implode
 
             if (report.Status == HealthStatus.Unhealthy)
             {
+                Environment.ExitCode = HealthCheckFailedExitCode;
                 _applicationLifetime.StopApplication();
             }
         }
