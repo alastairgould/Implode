@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Implode</PackageId>
-    <Version>0.0.3</Version>
+    <Version>0.0.4</Version>
     <Authors>alastairgould@gmail.com</Authors>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
