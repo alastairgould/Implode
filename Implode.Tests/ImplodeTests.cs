@@ -82,7 +82,6 @@ namespace Implode.Tests
 
             await host.StartAsync();
             
-            Assert.False(host.WaitForShutdownAsync().IsCompleted);
             Assert.Equal(0, Environment.ExitCode);
         }
     }
