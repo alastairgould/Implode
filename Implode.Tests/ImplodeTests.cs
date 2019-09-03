@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Implode.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,13 +24,8 @@ namespace Implode.Tests
                 })
                 .Build();
 
-            var exception = await Assert.ThrowsAsync<StartupHealthCheckFailed>(() => host.StartAsync());
-
-            Assert.Collection(exception.HealthReport.Entries, entry =>
-            {
-                Assert.Equal("Failing HealthCheck", entry.Key);
-                Assert.Equal(HealthStatus.Unhealthy, entry.Value.Status);
-            });
+            await host.StartAsync();
+            Assert.True(host.WaitForShutdownAsync().IsCompleted);
         }
 
         [Fact]
@@ -46,6 +42,8 @@ namespace Implode.Tests
                 .Build();
 
             await host.StartAsync();
+            
+            Assert.False(host.WaitForShutdownAsync().IsCompleted);
         }
     }
 }
